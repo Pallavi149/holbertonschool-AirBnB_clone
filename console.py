@@ -4,7 +4,6 @@ import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-    intro = 'HolbertonBNB Console.   Type help or ? to list commands.\n'
     prompt = '(hbnb)'
     file = None
 
