@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 """BaseModel Class"""
-import uuid 
+import uuid
 from datetime import datetime
 from models import storage
 
 
 class BaseModel:
-    """BaseModel of class"""
+    def hello:
+        print()
+
     def __init__(self, *args, **kwargs):
         """Initialise base model"""
         if kwargs:
