@@ -4,8 +4,7 @@ import uuid
 from datetime import datetime
 
 class BaseModel:
-    """Base model class"""
-
+    """BaseModel of class"""
     def __init__(self, *args, **kwargs):
         """Initialise base model"""
         if kwargs:
