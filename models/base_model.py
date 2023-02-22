@@ -6,8 +6,7 @@ from models import storage
 
 
 class BaseModel:
-    def hello:
-        print()
+    """Base model class"""
 
     def __init__(self, *args, **kwargs):
         """Initialise base model"""
