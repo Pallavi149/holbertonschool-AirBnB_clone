@@ -23,10 +23,10 @@ class FileStorage:
     def save(self):
         """Serialise __objects to JSON"""
         new_dict = {}
-        for k, v in self.__objects.items():
-            new_dict[k] = value.to_dict()
+        for key, value in self.__objects.items():
+            new_dict[key] = value.to_dict()
         with open(self.__file_path, 'w', encoding="utf-8") as f:
-            json.dup(new_dict, f)
+            json.dump(new_dict, f)
 
     def reload(self):
         """Deseialise JSON to __objects"""
@@ -35,4 +35,4 @@ class FileStorage:
                 loaded_dict = json.load(f)
             for value in loaded_dict.values():
                 obj_class = value["__class__"]
-                self.__objects[value["{}{}".format(obj_class, ".id")]] = eval(obj_class)(**value)
+                self.__objects["{}.{}".format(obj_class, value["id"])] = eval(obj_class)(**value)
