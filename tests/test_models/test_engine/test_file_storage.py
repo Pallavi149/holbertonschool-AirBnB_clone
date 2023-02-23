@@ -12,7 +12,7 @@ class TestFileStorage(unittest.TestCase):
     """Class for TestFileStorage"""
 
     def setUp(self):
-        self.storage - FileStorage()
+        self.storage = FileStorage()
 
     def tearDown(self):
         "Remove the test file if it was created during testing"
