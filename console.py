@@ -2,7 +2,6 @@
 """Console class to"""
 import cmd
 import os
-import shlex
 from models.base_model import BaseModel
 from models import storage
 
@@ -28,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """Do nothing on empty line"""
-        passi
+        pass
 
     def do_create(self, arg):
         """Create a new instance of BaseModel, save it to the JSON file,
@@ -49,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, arg):
         """Prints string representation of an instance based on the class
         name and id."""
-        args = shlex.split(arg)
+        args = arg.split()
         if not args:
             print("** class name missing **")
             return
@@ -67,7 +66,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
-        args = shlex.split(arg)
+        args = arg.split()
         if not args:
             print("** class name missing **")
             return
@@ -102,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
         updating attribute (save the change/s into JSON file)
         Usage: update <class_name> <id> <attribute name> "<attribute value>
         """
-        args = shlex.split(arg)
+        args = arg.split()
         if not args:
             print("** class name missing **")
             return
