@@ -11,7 +11,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
-#---Basic hbnb commands---
+# ---Basic hbnb commands---
 
     def do_EOF(self, arg):
         """Quit the console"""
@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             cls = eval(args[0])
         except NameError:
-            #if args[0] in storage.__class__.__name__:
+            # if args[0] in storage.__class__.__name__:
             print("** class doesn't exist **")
             return
         if len(args) < 2:

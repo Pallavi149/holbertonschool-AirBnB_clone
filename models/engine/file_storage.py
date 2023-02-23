@@ -35,4 +35,5 @@ class FileStorage:
                 loaded_dict = json.load(f)
             for value in loaded_dict.values():
                 obj_class = value["__class__"]
-                self.__objects["{}.{}".format(obj_class, value["id"])] = eval(obj_class)(**value)
+                self.__objects["{}.{}".format(obj_class, value["id"])] = \
+                    eval(obj_class)(**value)
