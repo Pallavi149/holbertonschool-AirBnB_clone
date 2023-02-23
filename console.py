@@ -62,7 +62,6 @@ class HBNBCommand(cmd.Cmd):
         if key not in storage.all():
             print("** no instance found **")
             return
-        else:
         print(storage.all()[key])
 
     def do_destroy(self, arg):
