@@ -10,8 +10,6 @@ class HBNBCommand(cmd.Cmd):
     """Class that has basic commands for hbnb console"""
 
     prompt = '(hbnb) '
-    file = None
-
 
 #---Basic hbnb commands---
 
@@ -131,27 +129,6 @@ class HBNBCommand(cmd.Cmd):
             value = args[3]
         setattr(obj, attr_name, value)
         obj.save()
-
-
-#------------------------------------------------------------------------------
-#---Other commands---
-
-    def handle_interrupt(self):
-        print('\n')
-        self.cmdqueue.append('EOF')
-
-    def cmdloop(self, intro=None):
-        try:
-            super().cmdloop(intro)
-        except KeyboardInterrupt:
-            self.handle_interrupt()
-
-    def do_clear(self, args):
-        """Clears console"""
-        os.system('clear')
-
-
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
