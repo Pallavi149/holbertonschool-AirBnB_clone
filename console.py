@@ -11,6 +11,7 @@ from models.state import State
 from models.user import User
 from models.amenity import Amenity
 
+
 class HBNBCommand(cmd.Cmd):
     """Class that has basic commands for hbnb console"""
 
