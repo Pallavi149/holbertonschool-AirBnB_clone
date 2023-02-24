@@ -2,14 +2,17 @@
 """Console class to"""
 import cmd
 import shlex
-from models.base_model import BaseModel
 from models import storage
+from models.amenity import Amenity
+from models.base_model import BaseModel
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-from models.amenity import Amenity
+
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -58,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
         db = storage.all()
         if not len(args):
             print("** class name missing **")
-        if args[0] not in globals() and args[0] not in locals():
+        if args[0] in classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
@@ -73,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        if args[0] in storage.__class__.__name__:
+        if args[0] in classes:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -86,18 +89,23 @@ class HBNBCommand(cmd.Cmd):
         storage.all().pop(key)
         storage.save()
 
-    def do_all(self, arg):
-        """Prints all string representation of all instances based or not
-        on the class name."""
-        if not arg:
-            print([str(obj) for obj in storage.all().values()])
+    def do_all(self, args):
+        """Prints all string representation of all instances based or not on
+        the class name.
+        """
+        objs = []
+        if not args:
+            for obj in storage.all().values():
+                objs.append(str(obj))
         else:
-            try:
-                cls = eval(arg)
-            except NameError:
+            args = args.split()
+            if args[0] not in classes:
                 print("** class doesn't exist **")
                 return
-            print([str(obj) for obj in storage.all().values()])
+            for key in storage.all():
+                if args[0] in key:
+                    objs.append(str(storage.all()[key]))
+        print(objs)
 
     def do_update(self, arg):
         """Update an isntance based on the class name and id by adding or
@@ -108,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        if args[0] not in storage.__class__.__name__:
+        if args[0] not in classes:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
