@@ -57,21 +57,20 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, arg):
         """Prints string representation of an instance based on the class
         name and id."""
-        args = shlex.split(arg)
-        if len(args) == 0:
+        if arg == "" or arg is None:
             print("** class name missing **")
-            return False
-        if args[0] in classes:
-            if len(args) > 1:
-                key = args[0] + "." + args[1]
-                if key in storage.all():
-                    print(storage.all()[key])
-                else:
-                    print("** no instance found **")
-            else:
-                print("** instance id missing **")
         else:
-            print("** class doesn't exist **")
+            words = arg.split(' ')
+            if words[0] not in classes:
+                print("** class doesn't exist **")
+            elif len(words) < 2:
+                print("** instance id missing **")
+            else:
+                key = "{}.{}".format(words[0], words[1])
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    print(storage.all()[key])
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class and id"""
@@ -83,7 +82,10 @@ class HBNBCommand(cmd.Cmd):
                 key = args[0] + "." + args[1]
                 if key in storage.all():
                     storage.all().pop(key)
+                    print("instances after deletion:", storage.all())
                     storage.save()
+                    with open("file.json", "r") as file:
+                        print("file contents after deletion:", file.read())
                 else:
                     print("** no instance found **")
             else:
