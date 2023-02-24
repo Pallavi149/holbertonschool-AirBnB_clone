@@ -52,10 +52,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        try:
-            cls = eval(args[0])
-        except NameError:
-            # if args[0] in storage.__class__.__name__:
+        if args[0] in storage.__class__.__name__:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
