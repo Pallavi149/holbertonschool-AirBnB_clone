@@ -11,6 +11,9 @@ from models.state import State
 from models.user import User
 from models.amenity import Amenity
 
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
+
 
 class FileStorage:
     """File storage class"""
@@ -24,13 +27,14 @@ class FileStorage:
 
     def new(self, obj):
         """Sets in __objects the ob with key <onj class name>.id"""
-        self.__objects[f"{obj.__class__.__name__},{obj.id}"] = obj
+        key = "{}.{}".format(type(obj).__name__, obj.id)
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """Serialise __objects to JSON"""
         new_dict = {}
-        for key, value in self.__objects.items():
-            new_dict[key] = value.to_dict()
+        for key in self.__objects:
+            new_dict[key] = self.__objects[key].to_dict()
         with open(self.__file_path, 'w', encoding="utf-8") as f:
             json.dump(new_dict, f)
 
