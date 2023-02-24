@@ -11,16 +11,6 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
-    current__Classes = {
-        BaseModel.__name__: BaseModel,
-        # User.__name__: User,
-        #State.__name__: State,
-        #City.__name__: City,
-        #Place.__name__: Place,
-        #Amenity.__name__: Amenity,
-        #Review.__name__: Review
-    }
-
 # ---Basic hbnb commands---
 
     def do_EOF(self, arg):
@@ -56,22 +46,23 @@ class HBNBCommand(cmd.Cmd):
         print(instance.id)
 
     def do_show(self, arg):
-        argus = shlex.split(arg)
-        db = storage.all()
-
-        if len(argus) < 1:
+        """Prints string representation of an instance based on the class
+        name and id."""
+        args = shlex.split(arg)
+        if not args:
             print("** class name missing **")
-        elif argus[0] not in HBNBCommand.current__Classes:
+            return
+        if args[0] in storage.__class__.__name__:
             print("** class doesn't exist **")
-        elif len(argus) < 2:
+            return
+        if len(args) < 2:
             print("** instance id missing **")
-        else:
-            key = '{}.{}'.format(argus[0], argus[1])
-            instance = db.get(key, None)
-            if instance is None:
-                print("** no instance found **")
-            else:
-                print(instance)
+            return
+        key = args[0] + "." + args[1]
+        if key not in storage.all():
+            print("** no instance found **")
+            return
+        print(storage.all()[key])
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
@@ -114,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        if args[0] in storage.__class__.__name__:
+        if args[0] not in storage.__class__.__name__:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
