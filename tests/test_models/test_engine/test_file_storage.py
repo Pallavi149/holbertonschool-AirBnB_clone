@@ -16,8 +16,10 @@ class TestFileStorage(unittest.TestCase):
 
     def tearDown(self):
         "Remove the test file if it was created during testing"
-        if os.path.exists(self.storage._FileStorage__file_path):
-            os.remove(self.storage._FileStorage__file_path)
+        try:
+            os.remove(self.test_file)
+        except:
+            pass
 
     def test_file_path(self):
         "Test that the file path is correct"
