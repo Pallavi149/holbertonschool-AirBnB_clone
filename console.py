@@ -115,33 +115,49 @@ class HBNBCommand(cmd.Cmd):
         Usage: update <class_name> <id> <attribute name> "<attribute value>
         """
         args = shlex.split(arg)
-        if not args:
+        integers = ["number_rooms", "number_bathrooms", "max_guest",
+                    "price_by_night"]
+        floats = ["latitude", "longitude"]
+
+        if len(args) == 0:
             print("** class name missing **")
             return
+
         if args[0] not in classes:
             print("** class doesn't exist **")
             return
-        if len(args) < 2:
+
+        if len(args) == 1:
             print("** instance id missing **")
             return
-        key = args[0] + "." + args[1]
-        if key not in storage.all():
+
+        k = args[0] + "." + args[1]
+        if k not in storage.all():
             print("** no instance found **")
             return
-        if len(args) < 3:
+
+        if len(args) == 2:
             print("** attribute name missing **")
             return
-        if len(args) < 4:
+
+        if len(args) == 3:
             print("** value missing **")
             return
-        obj = storage.all()[key]
-        attr_name = args[2]
-        try:
-            value = type(getattr(obj, attr_name))(args[3])
-        except Exception:
-            value = args[3]
-        setattr(obj, attr_name, value)
-        obj.save()
+
+        if args[0] == "Place":
+            if args[2] in integers:
+                try:
+                    args[3] = int(args[3])
+                except:
+                    args[3] = 0
+            elif args[2] in floats:
+                try:
+                    args[3] = float(args[3])
+                except:
+                    args[3] = 0.0
+
+        setattr(storage.all()[k], args[2], args[3])
+        storage.all()[k].save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
