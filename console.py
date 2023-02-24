@@ -56,7 +56,7 @@ class HBNBCommand(cmd.Cmd):
         name and id."""
         args = shlex.split(arg)
         db = storage.all()
-        if not args:
+        if not len(args):
             print("** class name missing **")
         elif args[0] in storage.__class__.__name__:
             print("** class doesn't exist **")
