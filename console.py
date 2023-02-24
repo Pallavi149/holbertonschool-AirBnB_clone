@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
         db = storage.all()
         if not len(args):
             print("** class name missing **")
-        elif args[0] in storage.__class__.__name__:
+        if args[0] not in globals() and args[0] not in locals():
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
