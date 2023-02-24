@@ -55,20 +55,17 @@ class HBNBCommand(cmd.Cmd):
         """Prints string representation of an instance based on the class
         name and id."""
         args = shlex.split(arg)
+        db = storage.all()
         if not args:
             print("** class name missing **")
-            return
-        if args[0] in storage.__class__.__name__:
+        elif args[0] in storage.__class__.__name__:
             print("** class doesn't exist **")
-            return
-        if len(args) < 2:
+        elif len(args) == 1:
             print("** instance id missing **")
-            return
-        key = args[0] + "." + args[1]
-        if key not in storage.all():
+        elif "{}.{}".format(args[0], args[1]) not in db:
             print("** no instance found **")
-            return
-        print(storage.all()[key])
+        else:
+            print(db["{}.{}".format(args[0], args[1])])
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
