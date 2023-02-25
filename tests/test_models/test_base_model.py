@@ -39,7 +39,9 @@ class TestBaseModel(unittest.TestCase):
         model = BaseModel()
         self.assertIsInstance(model.created_at, datetime)
         self.assertEqual(model.created_at, model.updated_at)
-
+        time_diff = abs(model.created_at - model.updated_at)
+        self.assertLess(time_diff, timedelta(seconds=1))
+    
     def test_str(self):
         """Test __str__ return string format"""
         model = BaseModel()
