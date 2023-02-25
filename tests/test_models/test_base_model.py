@@ -2,6 +2,7 @@
 """Test Cases for Base Model Class"""
 import unittest
 from datetime import datetime
+import time
 from models.base_model import BaseModel
 
 
