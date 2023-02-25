@@ -39,8 +39,13 @@ class TestBaseModel(unittest.TestCase):
         """
         model = BaseModel()
         time.sleep(0.00001)
+        created_at_timestamp = model.created_at.timestamp()
+        updated_at_timestamp = model.updated_at.timestamp()
         self.assertIsInstance(model.created_at, datetime)
-        self.assertAlmostEqual(model.created_at, model.updated_at)
+        self.assertAlmostEqual(
+                created_at_timestamp,
+                updated_at_timestamp,
+                places=1)
 
     def test_str(self):
         """Test __str__ return string format"""

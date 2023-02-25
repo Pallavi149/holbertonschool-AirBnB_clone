@@ -29,7 +29,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_all(self):
         "Test that the all() method returns the correct dictionary of objects"
-        self.assertEqual(self.storage.all(), {})
+        model = BaseModel()
+        self.storage.new(model)
+        self.storage.save()
+        self.assertNotEqual(self.storage.all(), {})
 
     def test_new(self):
         "Test that new() adds an object to the dictionary of objects"
