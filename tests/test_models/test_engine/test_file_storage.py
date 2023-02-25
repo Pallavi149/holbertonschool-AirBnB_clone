@@ -46,21 +46,19 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(os.path.exists(self.storage._FileStorage__file_path))
         with open(self.storage._FileStorage__file_path, 'r') as f:
             data = json.load(f)
-        key = f"{model.__class__.__name__},{model.id}"
-        self.assertTrue(key in data)
+        self.assertTrue(model.to_dict() in data.values())
 
     def test_reload(self):
         "Test that reload() loads the dictionary of objects from the JSON file"
         model = BaseModel()
         obj = BaseModel()
         obj.save()
-        with open(self.test_file, "r") as f:
+        with open(self.storage._FileStorage__file_path, "r") as f:
             saved_data = json.load(f)
         self.assertIn("BaseModel.{}".format(obj.id), saved_data)
-        self.storage.__objects = {}
-        self.storage._FileStorage__file_path = self.test_file
+        self.storage._FileStorage__objects = {}
         self.storage.reload()
-        self.assertIn("BaseModel.{}".format(obj.id), self.storage.__objects)
-        loaded_obj = self.storage.__objects["BaseModel.{}".format(obj.id)]
+        self.assertIn("BaseModel.{}".format(obj.id), self.storage.all())
+        loaded_obj = self.storage.all()["BaseModel.{}".format(obj.id)]
         self.assertIsInstance(loaded_obj, BaseModel)
         self.assertEqual(loaded_obj.id, obj.id)
