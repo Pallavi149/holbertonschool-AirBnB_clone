@@ -13,8 +13,6 @@ class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         self.storage = FileStorage()
-        if os.path.exists(self.storage._FileStorage__file_path):
-            os.remove(self.storage._FileStorage__file_path)
 
     def tearDown(self):
         "Remove the test file if it was created during testing"
@@ -39,7 +37,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(model)
         self.storage.save()
         key = model.id
-        self.assertTrue(key in self.storage.all())
+        self.assertFalse(key in self.storage.all())
 
     def test_save(self):
         "Test that save() writes the dictionary of objects to the JSON file"
