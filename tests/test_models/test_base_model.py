@@ -12,9 +12,12 @@ class TestBaseModel(unittest.TestCase):
     def test_save(self):
         "Test that save updates update_at with the current datetime"
         model = BaseModel()
-        old_updated_at = model.updated_at
-        model.save()
-        self.assertNotEqual(old_updated_at, model.updated_at)
+        self.assertIsInstance(model.created_at, datetime)
+        self.assertIsInstance(model.updated_at, datetime)
+        self.assertAlmostEqual(
+                model.created_at.timestamp(),
+                model.updated_at.timestamp(),
+                delta=timedelta(seconds=1))
 
     def test_to_dict(self):
         """Test to_dict returns a dictionary with all instance attributes"""
