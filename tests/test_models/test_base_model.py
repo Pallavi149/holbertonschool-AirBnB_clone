@@ -2,6 +2,7 @@
 """Test Cases for Base Model Class"""
 import unittest
 from datetime import datetime, timedelta
+import time
 from models.base_model import BaseModel
 
 
@@ -13,10 +14,15 @@ class TestBaseModel(unittest.TestCase):
         model = BaseModel()
         self.assertTrue(isinstance(model.created_at, datetime))
         self.assertTrue(isinstance(model.updated_at, datetime))
+        time.sleep(0.1)
+        model2 = BaseModel()
+        self.assertNotEqual(model.created_at, model2.created_at)
+        self.assertNotEqual(model.updated_at, model2.updated_at)
+        delta = timedelta(milliseconds=100)
         self.assertAlmostEqual(
                 model.created_at.timestamp(),
                 model.updated_at.timestamp(),
-                delta=timedelta(seconds=1))
+                delta=delta)
 
     def test_to_dict(self):
         """Test to_dict returns a dictionary with all instance attributes"""
