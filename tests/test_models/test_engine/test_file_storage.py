@@ -35,7 +35,8 @@ class TestFileStorage(unittest.TestCase):
         "Test that new() adds an object to the dictionary of objects"
         model = BaseModel()
         self.storage.new(model)
-        key = f"{model.__class__.__name__},{model.id}"
+        self.storage.save()
+        key = model.id
         self.assertTrue(key in self.storage.all())
 
     def test_save(self):
