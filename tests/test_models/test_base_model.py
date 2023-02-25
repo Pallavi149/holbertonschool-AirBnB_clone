@@ -49,7 +49,7 @@ class TestBaseModel(unittest.TestCase):
         model2 = BaseModel()
         self.assertNotEqual(model.created_at, model2.created_at)
         self.assertNotEqual(model.updated_at, model2.updated_at)
-        delta = timedelta(microseconds=1)
+        time_diff = timedelta(microseconds=1)
         self.assertAlmostEqual(
             model.created_at.timestamp(),
             model.updated_at.timestamp(),
