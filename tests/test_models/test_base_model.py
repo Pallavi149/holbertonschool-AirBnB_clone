@@ -11,8 +11,8 @@ class TestBaseModel(unittest.TestCase):
     def test_save(self):
         "Test that save updates update_at with the current datetime"
         model = BaseModel()
-        self.assertIsTrue(isinstance(model.created_at, datetime))
-        self.assertIsTrue(isinstance(model.updated_at, datetime))
+        self.assertTrue(isinstance(model.created_at, datetime))
+        self.assertTrue(isinstance(model.updated_at, datetime))
         self.assertAlmostEqual(
                 model.created_at.timestamp(),
                 model.updated_at.timestamp(),
