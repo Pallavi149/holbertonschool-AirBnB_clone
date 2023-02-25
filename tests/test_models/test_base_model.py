@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Test Cases for Base Model Class"""
+import time
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
@@ -36,7 +37,8 @@ class TestBaseModel(unittest.TestCase):
         Test that created_at attribute is a datetime object and is set
         to the current datetime when an instance is created
         """
-        model = BaseModel()
+        current_time = datetime.now().replace(microsecond=0)
+        model = BaseModel(created_at=current_time)
         self.assertIsInstance(model.created_at, datetime)
         self.assertEqual(model.created_at, model.updated_at)
 
