@@ -4,7 +4,12 @@ import time
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
+from models.tmp_base_model import BaseModel
 
+class MyTestBaseModel(BaseModel):
+    """Subclass of BaseModel that overrides the save() method"""
+    def save(self):
+        self.updated_at = datetime.utcnow()
 
 class TestBaseModel(unittest.TestCase):
     """Test Cases for Base Model"""
