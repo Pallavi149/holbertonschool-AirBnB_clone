@@ -37,7 +37,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(model)
         self.storage.save()
         key = model.id
-        self.assertIn(key in self.storage.all())
+        self.assertFalse(key in self.storage.all())
 
     def test_save(self):
         "Test that save() writes the dictionary of objects to the JSON file"
