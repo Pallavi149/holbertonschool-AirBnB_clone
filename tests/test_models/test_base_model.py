@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """Test Cases for Base Model Class"""
 import unittest
-from datetime import timedelta
-import datetime
+from datetime import datetime, timedelta
 from models.base_model import BaseModel
 
 
@@ -12,8 +11,8 @@ class TestBaseModel(unittest.TestCase):
     def test_save(self):
         "Test that save updates update_at with the current datetime"
         model = BaseModel()
-        self.assertIsInstance(model.created_at, datetime)
-        self.assertIsInstance(model.updated_at, datetime)
+        self.assertIsTrue(isinstance(model.created_at, datetime))
+        self.assertIsTrue(isinstance(model.updated_at, datetime))
         self.assertAlmostEqual(
                 model.created_at.timestamp(),
                 model.updated_at.timestamp(),
