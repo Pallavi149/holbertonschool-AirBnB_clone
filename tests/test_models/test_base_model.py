@@ -14,7 +14,9 @@ class TestBaseModel(unittest.TestCase):
         model = BaseModel()
         old_updated_at = model.updated_at
         model.save()
-        self.assertNotEqual(old_updated_at, model.updated_at)
+        new_updated_at = model.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
+        self.assertTrue(isinstance(new_updated_at, datetime)
 
     def test_to_dict(self):
         """Test to_dict returns a dictionary with all instance attributes"""
