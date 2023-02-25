@@ -13,6 +13,8 @@ class TestFileStorage(unittest.TestCase):
 
     def setUp(self):
         self.storage = FileStorage()
+        if os.path.exists(self.storage._FileStorage__file_path):
+            os.remove(self.storage._FileStorage__file_path)
 
     def tearDown(self):
         "Remove the test file if it was created during testing"
