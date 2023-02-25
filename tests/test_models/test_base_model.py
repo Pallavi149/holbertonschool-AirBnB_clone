@@ -1,6 +1,9 @@
+#!/usr/bin/python3
+"""Test BaseModel for expected behavior and documentation"""
+
 from datetime import datetime, timedelta
 import unittest
-
+import time
 from models.base_model import BaseModel
 
 
@@ -14,10 +17,7 @@ class TestBaseModel(unittest.TestCase):
         model.save()
         time_diff = timedelta(seconds=1)
         self.assertNotEqual(old_updated_at, model.updated_at)
-        self.assertAlmostEqual(
-                model.updated_at.timestamp(),
-                datetime.now().timestamp(),
-                delta=time_diff)
+        self.assertAlmostEqual(model.updated_at.timestamp(), datetime.now().timestamp(), delta=time_diff)
 
     def test_created_at(self):
         """
@@ -32,10 +32,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(model.created_at, model2.created_at)
         self.assertNotEqual(model.updated_at, model2.updated_at)
         time_diff = timedelta(microseconds=1)
-        self.assertAlmostEqual(
-                model.created_at.timestamp(),
-                model.updated_at.timestamp(),
-                delta=time_diff)
+        self.assertAlmostEqual(model.created_at.timestamp(), model.updated_at.timestamp(), delta=time_diff)
 
     def test_to_dict(self):
         """Test to_dict returns a dictionary with all instance attributes"""
