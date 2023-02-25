@@ -1,8 +1,6 @@
-#!/usr/bin/python3
-"""Test Cases for Base Model Class"""
-import unittest
 from datetime import datetime, timedelta
-import time
+import unittest
+
 from models.base_model import BaseModel
 
 
@@ -10,16 +8,34 @@ class TestBaseModel(unittest.TestCase):
     """Test Cases for Base Model"""
 
     def test_save(self):
-        "Test that save updates update_at with the current datetime"
+        """Test that save updates update_at with the current datetime"""
         model = BaseModel()
         old_updated_at = model.updated_at
         model.save()
-        delta = timedelta(seconds=1)
+        time_diff = timedelta(seconds=1)
         self.assertNotEqual(old_updated_at, model.updated_at)
         self.assertAlmostEqual(
                 model.updated_at.timestamp(),
                 datetime.now().timestamp(),
-                delta=delta)
+                delta=time_diff)
+
+    def test_created_at(self):
+        """
+        Test that created_at attribute is a datetime object and is set
+        to the current datetime when an instance is created
+        """
+        model = BaseModel()
+        self.assertTrue(isinstance(model.created_at, datetime))
+        self.assertTrue(isinstance(model.updated_at, datetime))
+        time.sleep(0.1)
+        model2 = BaseModel()
+        self.assertNotEqual(model.created_at, model2.created_at)
+        self.assertNotEqual(model.updated_at, model2.updated_at)
+        time_diff = timedelta(microseconds=1)
+        self.assertAlmostEqual(
+                model.created_at.timestamp(),
+                model.updated_at.timestamp(),
+                delta=time_diff)
 
     def test_to_dict(self):
         """Test to_dict returns a dictionary with all instance attributes"""
@@ -37,24 +53,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(model2.id, str)
         self.assertNotEqual(model1.id, model2.id)
 
-    def test_created_at(self):
-        """
-        Test that created_at attribute is a datetime object and is set
-        to the current datetime when an instance is created
-        """
-        model = BaseModel()
-        self.assertTrue(isinstance(model.created_at, datetime))
-        self.assertTrue(isinstance(model.updated_at, datetime))
-        time.sleep(0.1)
-        model2 = BaseModel()
-        self.assertNotEqual(model.created_at, model2.created_at)
-        self.assertNotEqual(model.updated_at, model2.updated_at)
-        time_diff = timedelta(microseconds=1)
-        self.assertAlmostEqual(
-            model.created_at.timestamp(),
-            model.updated_at.timestamp(),
-            delta=delta)
-
     def test_str(self):
         """Test __str__ return string format"""
         model = BaseModel()
@@ -62,3 +60,4 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn('[BaseModel]', model_str)
         self.assertIn(model.id, model_str)
         self.assertIn(str(model.__dict__), model_str)
+
