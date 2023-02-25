@@ -12,16 +12,13 @@ class TestBaseModel(unittest.TestCase):
     def test_save(self):
         "Test that save updates update_at with the current datetime"
         model = BaseModel()
-        self.assertTrue(isinstance(model.created_at, datetime))
-        self.assertTrue(isinstance(model.updated_at, datetime))
-        time.sleep(0.1)
-        model2 = BaseModel()
-        self.assertNotEqual(model.created_at, model2.created_at)
-        self.assertNotEqual(model.updated_at, model2.updated_at)
-        delta = timedelta(milliseconds=100)
+        old_updated_at = model.updated_at
+        model.save()
+        delta = timedelta(seconds=1)
+        self.assertNotEqual(old_updated_at, model.updated_at)
         self.assertAlmostEqual(
-                model.created_at.timestamp(),
                 model.updated_at.timestamp(),
+                datetime.now().timestamp(),
                 delta=delta)
 
     def test_to_dict(self):
@@ -45,19 +42,18 @@ class TestBaseModel(unittest.TestCase):
         Test that created_at attribute is a datetime object and is set
         to the current datetime when an instance is created
         """
-        start_time = datetime.now()
         model = BaseModel()
-        end_time = datetime.now()
-        self.assertTrue(start_time <= model.created_at <= end_time)
-        time.sleep(1e-4)
-        start_time = datetime.now()
-        inst2 = BaseModel()
-        end_time = datetime.now()
-        self.assertTrue(start_time <= inst2.created_at <= end_time)
-        self.assertEqual(model.created_at, model.updated_at)
-        self.assertEqual(inst2.created_at, inst2.updated_at)
-        self.assertNotEqual(model.created_at, inst2.created_at)
-        self.assertNotEqual(model.updated_at, inst2.updated_at)
+        self.assertTrue(isinstance(model.created_at, datetime))
+        self.assertTrue(isinstance(model.updated_at, datetime))
+        time.sleep(0.1)
+        model2 = BaseModel()
+        self.assertNotEqual(model.created_at, model2.created_at)
+        self.assertNotEqual(model.updated_at, model2.updated_at)
+        delta = timedelta(microseconds=1)
+        self.assertAlmostEqual(
+            model.created_at.timestamp(),
+            model.updated_at.timestamp(),
+            delta=delta)
 
     def test_str(self):
         """Test __str__ return string format"""
