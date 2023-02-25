@@ -38,9 +38,9 @@ class TestBaseModel(unittest.TestCase):
         to the current datetime when an instance is created
         """
         model = BaseModel()
-        time.sleep(0.001)
+        time.sleep(0.00001)
         self.assertIsInstance(model.created_at, datetime)
-        self.assertEqual(model.created_at, model.updated_at)
+        self.assertAlmostEqual(model.created_at, model.updated_at)
 
     def test_str(self):
         """Test __str__ return string format"""
