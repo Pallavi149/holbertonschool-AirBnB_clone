@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Test Cases for Base Model Class"""
 import unittest
-import time
+from datetime import datetime
 from models.base_model import BaseModel
 
 
