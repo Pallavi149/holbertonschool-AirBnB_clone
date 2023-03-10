@@ -1,0 +1,27 @@
+section.places {
+    display: flex;
+    flex-direction: column;
+    margin-top: 45px;
+    margin-left: 10px;
+}
+h1 {
+    font-size: 30px;
+    width: 100%;
+    text-align: left;
+}
+article {
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    border-radius: 4px;
+    border: #FF5A5F 1px solid;
+}
+article h2{
+    font-size: 30px;
+}
+.articles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

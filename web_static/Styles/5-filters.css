@@ -30,7 +30,7 @@ button:hover {
 	height: 100%;
 	width: 25%;
 
-	margin-left: 45px;
+	
 	border-right: 1px solid #DDDDDD;
 }
 
@@ -41,7 +41,6 @@ button:hover {
 	height: 100%;
     width: 25%;
 
-	margin-left: 45px;
 }
 
 h3 {

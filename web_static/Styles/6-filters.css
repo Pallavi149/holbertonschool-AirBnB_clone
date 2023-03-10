@@ -1,10 +1,13 @@
-.container .filters {
+.container {
+    margin-left: 20%;
+}
+.filters {
     background-color: white;
     height: 70px;
     width:100%;
     border: 1px #DDDDDD solid;
     border-radius: 4px;
-    margin-left: 20%;
+    
 }
 
 button {
@@ -30,8 +33,8 @@ button:hover {
 	height: 100%;
 	width: 25%;
 
-	margin-left: 45px;
 	border-right: 1px solid #DDDDDD;
+    position: relative;
 }
 
 
@@ -42,7 +45,7 @@ button:hover {
 	height: 100%;
     width: 25%;
 
-	margin-left: 45px;
+	position: relative;
 }
 
 
@@ -63,18 +66,30 @@ h2 {
 }
 
 div .popover {
+    position: absolute;
     display: none;
     width: 100%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     color: #FAFAFA;
     list-style: none;
-    padding: 5px;
-    background-color: white;
+    background-color: #FAFAFA;
+    z-index: 1000;
+    top: 100%;   
+}
+
+.locations h3,
+.locations h4,
+.amenities h3,
+.amenities h4 {
+    padding-left: 45px;
 }
 
 .popover ul {
     list-style: none;
+}
+.popover > li {
+    padding: 5px;
 }
 
 .locations:hover .popover,
